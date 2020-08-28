@@ -17,7 +17,6 @@ use LogicException;
  */
 class Cryptomute
 {
-    const VERSION = '1.0.0';
     public const KEY_MIN_LENGTH = 16;
     public const MIN_ROUNDS = 3;
     public const DEFAULT_MIN_VALUE = '0';
