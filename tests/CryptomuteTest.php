@@ -30,6 +30,9 @@ class CryptomuteTest extends TestCase
         11 => 'insane',
     ];
 
+    /**
+     * @throws \Exception
+     */
     public function testReadmeExample()
     {
         $message = '[%s / %d rounds] Expected README example to work.';
@@ -53,6 +56,9 @@ class CryptomuteTest extends TestCase
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testEncodedValuesAreInDomain()
     {
         $message = '[%s / %d rounds] Base %d value of %s encoded to %s (%s) is still in domain %s - %s.';
@@ -82,6 +88,9 @@ class CryptomuteTest extends TestCase
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testDecodesEncodedNumbers()
     {
         $message = '[%s / %d rounds] Encoded base %d value must decode to initial value [%s].';
@@ -116,6 +125,9 @@ class CryptomuteTest extends TestCase
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testEncodeWithDiffrentPasswordsProducesDiffrentResults()
     {
         $message = '[%s / %d rounds] Same base %d value encoded with diffrent passwords produce diffrent results [%s].';
@@ -148,6 +160,9 @@ class CryptomuteTest extends TestCase
         }
     }
 
+    /**
+     * @throws \Exception
+     */
     public function testDecodeWithDiffrentPasswordsProducesDiffrentResults()
     {
         $message = '[%s / %d rounds] Same base %d value decoded with diffrent passwords produce diffrent results [%s].';
@@ -182,6 +197,7 @@ class CryptomuteTest extends TestCase
     }
 
     /**
+     * @throws \Exception
      */
     public function testInputLessThanMinValueThrowsException()
     {
@@ -194,6 +210,7 @@ class CryptomuteTest extends TestCase
     }
 
     /**
+     * @throws \Exception
      */
     public function testInputMoreThanMaxValueThrowsException()
     {
@@ -212,6 +229,7 @@ class CryptomuteTest extends TestCase
      * @param  string|null  $maxVal
      *
      * @return Cryptomute
+     * @throws \Exception
      */
     private function getCryptomute($cipher, $rounds, $minVal = null, $maxVal = null)
     {
