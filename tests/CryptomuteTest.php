@@ -182,10 +182,10 @@ class CryptomuteTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
      */
     public function testInputLessThanMinValueThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $cryptomute = $this->getCryptomute('aes-128-cbc', 3);
         $cryptomute->setValueRange(5000, 10000);
         $iv = random_bytes(openssl_cipher_iv_length('aes-128-cbc'));
@@ -194,10 +194,10 @@ class CryptomuteTest extends TestCase
     }
 
     /**
-     * @expectedException InvalidArgumentException
      */
     public function testInputMoreThanMaxValueThrowsException()
     {
+        $this->expectException(InvalidArgumentException::class);
         $cryptomute = $this->getCryptomute('aes-128-cbc', 3);
         $cryptomute->setValueRange(5000, 10000);
         $iv = random_bytes(openssl_cipher_iv_length('aes-128-cbc'));
