@@ -22,7 +22,7 @@ class DataConverterTest extends TestCase
     /**
      * Sets test data.
      */
-    public static function setUpBeforeClass()
+    public static function setUpBeforeClass(): void
     {
         self::$convertData = [
             '2-digit integer' => [
