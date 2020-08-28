@@ -36,8 +36,8 @@ class CryptomuteTest extends TestCase
         foreach (self::$testedCiphers as $cipher => $usesIv) {
             foreach (self::$testedRounds as $rounds => $description) {
                 $cryptomute = $this->getCryptomute($cipher, $rounds);
-                $password = openssl_random_pseudo_bytes(32);
-                $iv = $usesIv ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)) : null;
+                $password = random_bytes(32);
+                $iv = $usesIv ? random_bytes(openssl_cipher_iv_length($cipher)) : null;
 
                 $plainValue = '2048';
                 $encoded = $cryptomute->encrypt($plainValue, 10, false, $password, $iv);
@@ -61,11 +61,11 @@ class CryptomuteTest extends TestCase
         foreach (self::$testedCiphers as $cipher => $usesIv) {
             foreach (self::$testedRounds as $rounds => $description) {
                 $cryptomute = $this->getCryptomute($cipher, $rounds, "$minVal", "$maxVal");
-                $password = openssl_random_pseudo_bytes(32);
+                $password = random_bytes(32);
 
                 foreach (Cryptomute::$allowedBases as $base => $pattern) {
                     for ($i = $minVal; $i <= $maxVal; $i++) {
-                        $iv = $usesIv ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)) : null;
+                        $iv = $usesIv ? random_bytes(openssl_cipher_iv_length($cipher)) : null;
 
                         $input = gmp_strval(gmp_init("$i", 10), $base);
                         $encoded = $cryptomute->encrypt($input, $base, false, $password, $iv);
@@ -88,11 +88,11 @@ class CryptomuteTest extends TestCase
         foreach (self::$testedCiphers as $cipher => $usesIv) {
             foreach (self::$testedRounds as $rounds => $description) {
                 $cryptomute = $this->getCryptomute($cipher, $rounds);
-                $password = openssl_random_pseudo_bytes(32);
+                $password = random_bytes(32);
 
                 foreach (Cryptomute::$allowedBases as $base => $pattern) {
                     for ($i = 0; $i < self::TEST_REPEATS; $i++) {
-                        $iv = $usesIv ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)) : null;
+                        $iv = $usesIv ? random_bytes(openssl_cipher_iv_length($cipher)) : null;
 
                         $input = gmp_strval(gmp_random_range(
                             gmp_init(self::MIN_VALUE, 10),
@@ -125,7 +125,7 @@ class CryptomuteTest extends TestCase
 
                 foreach (Cryptomute::$allowedBases as $base => $pattern) {
                     for ($i = 0; $i < self::TEST_REPEATS; $i++) {
-                        $iv = $usesIv ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)) : null;
+                        $iv = $usesIv ? random_bytes(openssl_cipher_iv_length($cipher)) : null;
 
                         $input = gmp_strval(gmp_random_range(
                             gmp_init(self::MIN_VALUE, 10),
@@ -157,7 +157,7 @@ class CryptomuteTest extends TestCase
 
                 foreach (Cryptomute::$allowedBases as $base => $pattern) {
                     for ($i = 0; $i < self::TEST_REPEATS; $i++) {
-                        $iv = $usesIv ? openssl_random_pseudo_bytes(openssl_cipher_iv_length($cipher)) : null;
+                        $iv = $usesIv ? random_bytes(openssl_cipher_iv_length($cipher)) : null;
 
                         $input = gmp_strval(gmp_random_range(
                             gmp_init(self::MIN_VALUE, 10),
@@ -187,7 +187,7 @@ class CryptomuteTest extends TestCase
     {
         $cryptomute = $this->getCryptomute('aes-128-cbc', 3);
         $cryptomute->setValueRange(5000, 10000);
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-128-cbc'));
+        $iv = random_bytes(openssl_cipher_iv_length('aes-128-cbc'));
 
         $cryptomute->encrypt(4999, 10, true, 'foo', $iv);
     }
@@ -199,7 +199,7 @@ class CryptomuteTest extends TestCase
     {
         $cryptomute = $this->getCryptomute('aes-128-cbc', 3);
         $cryptomute->setValueRange(5000, 10000);
-        $iv = openssl_random_pseudo_bytes(openssl_cipher_iv_length('aes-128-cbc'));
+        $iv = random_bytes(openssl_cipher_iv_length('aes-128-cbc'));
 
         $cryptomute->encrypt(10001, 10, true, 'foo', $iv);
     }
@@ -216,7 +216,7 @@ class CryptomuteTest extends TestCase
     {
         $cryptomute = new Cryptomute(
             $cipher,
-            openssl_random_pseudo_bytes(32),
+            random_bytes(32),
             $rounds
         );
 
