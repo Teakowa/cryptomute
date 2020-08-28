@@ -2,14 +2,19 @@
 
 A small PHP class implementing Format Preserving Encryption via Feistel Network.
 
+![PHP from Packagist](https://img.shields.io/packagist/php-v/teakowa/cryptomute?style=flat-square)
+[![LICENSE](https://img.shields.io/badge/License-Apache--2.0-green.svg?style=flat-square)](LICENSE)
+[![LICENSE](https://img.shields.io/badge/License-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
+[![996.icu](https://img.shields.io/badge/Link-996.icu-red.svg?style=flat-square)](https://996.icu)
+
 ## 1. Installation
 
-You can install Cryptomute via [Composer](http://getcomposer.org) (packagist has [loostro/cryptomute](https://packagist.org/packages/loostro/cryptomute) package). In your `composer.json` file use:
+You can install Cryptomute via [Composer](http://getcomposer.org) (packagist has [teakowa/cryptomute](https://packagist.org/packages/teakowa/cryptomute) package). In your `composer.json` file use:
 
 ``` json
 {
     "require": {
-        "loostro/cryptomute": "^1.0"
+        "teakowa/cryptomute": "^1.0"
     }
 }
 ```
@@ -24,7 +29,7 @@ require_once 'vendor/autoload.php';
 use Cryptomute\Cryptomute;
 
 $cryptomute = new Cryptomute(
-    'aes-128-cbc',      // cipher
+    'aes-256-cbc',      // cipher
     '0123456789zxcvbn', // base key
     7,                  // number of rounds
 );
@@ -67,6 +72,7 @@ Cipher             | IV
 `aes-128-ecb`      | no
 `aes-192-cbc`      | yes
 `aes-192-ecb`      | no
+`aes-256-cbc`      | yes
 `camellia-128-cbc` | yes
 `camellia-128-ecb` | no
 `camellia-192-cbc` | yes
@@ -109,6 +115,6 @@ Decrypts data. Takes following arguments:
 * `$password` (string) encryption password
 * `$iv` (string) initialization vector - only if cipher requires it
 
-## License
+## LICENSE
 
-Cryptomute is licensed under [The MIT License (MIT)](LICENSE).
+The code in this repository, unless otherwise noted, is under the terms of both the [Anti 996](https://github.com/996icu/996.ICU/blob/master/LICENSE) License and the [Apache License (Version 2.0)]().
