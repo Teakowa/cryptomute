@@ -3,7 +3,7 @@
 namespace Cryptomute;
 
 /**
- * Cryptomute
+ * Cryptomute.
  *
  * (c) 2016 Piotr Gołębiewski
  *
@@ -22,7 +22,7 @@ class DataConverter
      *
      * @return string Decimal string.
      */
-    public static function binToDec($bin, $length = 0)
+    public static function binToDec(string $bin, int $length = 0): string
     {
         $gmp = gmp_init($bin, 2);
         $dec = gmp_strval($gmp, 10);
@@ -38,7 +38,7 @@ class DataConverter
      *
      * @return string Hexadecimal string.
      */
-    public static function binToHex($bin, $length = 0)
+    public static function binToHex(string $bin, int $length = 0): string
     {
         $gmp = gmp_init($bin, 2);
         $hex = gmp_strval($gmp, 16);
@@ -53,7 +53,7 @@ class DataConverter
      *
      * @return mixed Stream of bytes.
      */
-    public static function binToRaw($bin)
+    public static function binToRaw(string $bin)
     {
         $gmp = gmp_init($bin, 2);
 
@@ -68,7 +68,7 @@ class DataConverter
      *
      * @return string Binary string.
      */
-    public static function decToBin($dec, $length = 0)
+    public static function decToBin(string $dec, int $length = 0): string
     {
         $gmp = gmp_init($dec, 10);
         $bin = gmp_strval($gmp, 2);
@@ -84,7 +84,7 @@ class DataConverter
      *
      * @return string Hexadecimal string.
      */
-    public static function decToHex($dec, $length = 0)
+    public static function decToHex(string $dec, int $length = 0): string
     {
         $gmp = gmp_init($dec, 10);
         $hex = gmp_strval($gmp, 16);
@@ -99,7 +99,7 @@ class DataConverter
      *
      * @return mixed Stream of bytes.
      */
-    public static function decToRaw($dec)
+    public static function decToRaw(string $dec)
     {
         $gmp = gmp_init($dec, 10);
 
@@ -114,7 +114,7 @@ class DataConverter
      *
      * @return string Binary string.
      */
-    public static function hexToBin($hex, $length = 0)
+    public static function hexToBin(string $hex, int $length = 0)
     {
         $gmp = gmp_init($hex, 16);
         $bin = gmp_strval($gmp, 2);
@@ -130,7 +130,7 @@ class DataConverter
      *
      * @return string Decimal string.
      */
-    public static function hexToDec($hex, $length = 0)
+    public static function hexToDec(string $hex, int $length = 0): string
     {
         $gmp = gmp_init($hex, 16);
         $dec = gmp_strval($gmp, 10);
@@ -145,7 +145,7 @@ class DataConverter
      *
      * @return mixed Stream of bytes.
      */
-    public static function hexToRaw($hex)
+    public static function hexToRaw(string $hex)
     {
         $gmp = gmp_init($hex, 16);
 
@@ -160,7 +160,7 @@ class DataConverter
      *
      * @return string Binary string.
      */
-    public static function rawToBin($raw, $length = 0)
+    public static function rawToBin(string $raw, int $length = 0): string
     {
         $gmp = gmp_import($raw);
         $bin = gmp_strval($gmp, 2);
@@ -176,7 +176,7 @@ class DataConverter
      *
      * @return string Decimal string.
      */
-    public static function rawToDec($raw, $length = 0)
+    public static function rawToDec($raw, int $length = 0): string
     {
         $gmp = gmp_import($raw);
         $dec = gmp_strval($gmp, 10);
@@ -192,7 +192,7 @@ class DataConverter
      *
      * @return string Hex string.
      */
-    public static function rawToHex($raw, $length = 0)
+    public static function rawToHex($raw, int $length = 0): string
     {
         $gmp = gmp_import($raw);
         $hex = gmp_strval($gmp, 16);
@@ -208,11 +208,11 @@ class DataConverter
      *
      * @return string
      */
-    public static function pad($input, $length = 0)
+    public static function pad(string $input, int $length = 0): string
     {
         $input = ltrim($input, '0');
 
-        if ($input == '') {
+        if ($input === '') {
             $input = '0';
         }
 

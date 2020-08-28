@@ -110,7 +110,7 @@ class Cryptomute
      * @throws InvalidArgumentException If provided invalid constructor parameters.
      * @throws LogicException           If side size is longer than cipher length.
      */
-    public function __construct($cipher, $baseKey, $rounds = 3)
+    public function __construct(string $cipher, string $baseKey, int $rounds = 3)
     {
         if (! array_key_exists($cipher, self::$allowedCiphers)) {
             throw new InvalidArgumentException(sprintf(
@@ -151,7 +151,7 @@ class Cryptomute
      * @return Cryptomute
      * @throws InvalidArgumentException If provided invalid parameters.
      */
-    public function setValueRange($minValue, $maxValue)
+    public function setValueRange(string $minValue, string $maxValue): self
     {
         if (preg_match('/^([1-9][0-9]*)|([0]{1})$/', $minValue) !== 1) {
             throw new InvalidArgumentException(
@@ -208,7 +208,7 @@ class Cryptomute
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
-    public function encrypt($input, $base = 10, $pad = false, $password = null, $iv = null)
+    public function encrypt(string $input, int $base = 10, bool $pad = false, $password = null, $iv = null): string
     {
         return $this->_encryptInternal($input, $base, $pad, $password, $iv, true);
     }
@@ -225,7 +225,7 @@ class Cryptomute
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
-    private function _encryptInternal($input, $base, $pad, $password, $iv, $checkVal = false)
+    private function _encryptInternal(string $input, int $base, bool $pad, $password, $iv, $checkVal = false): string
     {
         $this->_validateInput($input, $base, $checkVal);
         $this->_validateIv($iv);
@@ -266,7 +266,7 @@ class Cryptomute
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
-    public function decrypt($input, $base = 10, $pad = false, $password = null, $iv = null)
+    public function decrypt(string $input, int $base = 10, bool $pad = false, $password = null, $iv = null): string
     {
         $this->_validateInput($input, $base);
         $this->_validateIv($iv);
@@ -305,7 +305,7 @@ class Cryptomute
      *
      * @return string Steam of encrypted bytes.
      */
-    private function _encrypt($input, $password, $iv = null)
+    private function _encrypt(string $input, string $password, $iv = null): string
     {
         return (self::$allowedCiphers[$this->cipher]['iv'])
             ? openssl_encrypt($input, $this->cipher, $password, true, $iv)
@@ -322,7 +322,7 @@ class Cryptomute
      *
      * @return string Binary string.
      */
-    private function _round($input, $key, $hashPassword, $iv = null)
+    private function _round(string $input, string $key, string $hashPassword, $iv = null): string
     {
         $bin = DataConverter::rawToBin($this->_encrypt($input.$key, $hashPassword, $iv));
 
@@ -337,7 +337,7 @@ class Cryptomute
      *
      * @return string Binary string.
      */
-    private function _binaryXor($left, $round)
+    private function _binaryXor(string $left, string $round): string
     {
         $xOr = gmp_xor(
             gmp_init($left, 2),
@@ -357,7 +357,7 @@ class Cryptomute
      *
      * @return string
      */
-    private function _convertToBin($input, $base)
+    private function _convertToBin(string $input, string $base): string
     {
         switch ($base) {
             case 2:
@@ -378,7 +378,7 @@ class Cryptomute
      *
      * @return string
      */
-    private function _convertFromBin($binary, $base, $pad)
+    private function _convertFromBin(string $binary, string $base, string $pad): string
     {
         switch ($base) {
             case 2:
@@ -399,7 +399,7 @@ class Cryptomute
      *
      * @throws InvalidArgumentException If provided invalid type.
      */
-    private function _validateInput($input, $base, $checkDomain = false)
+    private function _validateInput(string $input, string $base, bool $checkDomain = false)
     {
         if (! array_key_exists($base, self::$allowedBases)) {
             throw new InvalidArgumentException(sprintf(
@@ -435,7 +435,7 @@ class Cryptomute
      *
      * @param  string|null  $iv
      */
-    private function _validateIv($iv = null)
+    private function _validateIv($iv = null): void
     {
         if (self::$allowedCiphers[$this->cipher]['iv']) {
             $this->blockSize = openssl_cipher_iv_length($this->cipher);
@@ -459,7 +459,7 @@ class Cryptomute
      *
      * @return string
      */
-    private function _hashPassword($password = null)
+    private function _hashPassword($password = null): string
     {
         if (null !== $password) {
             $this->password = md5($password);
@@ -476,7 +476,7 @@ class Cryptomute
      *
      * @return array
      */
-    private function _roundKeys($hashPassword = null, $iv = null)
+    private function _roundKeys($hashPassword = null, $iv = null): array
     {
         $roundKeys = [];
         $prevKey = $this->_encrypt($this->key, $hashPassword, $iv);
