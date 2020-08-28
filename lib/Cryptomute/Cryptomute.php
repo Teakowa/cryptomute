@@ -30,6 +30,7 @@ class Cryptomute
         'aes-128-ecb' => ['iv' => false, 'length' => 128],
         'aes-192-cbc' => ['iv' => true, 'length' => 192],
         'aes-192-ecb' => ['iv' => false, 'length' => 192],
+        'aes-256-cbc' => ['iv' => true, 'length' => 256],
         'camellia-128-cbc' => ['iv' => true, 'length' => 128],
         'camellia-128-ecb' => ['iv' => false, 'length' => 128],
         'camellia-192-cbc' => ['iv' => true, 'length' => 192],

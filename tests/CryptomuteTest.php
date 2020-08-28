@@ -17,6 +17,7 @@ class CryptomuteTest extends TestCase
         'aes-128-ecb' => false,
         'aes-192-cbc' => true,
         'aes-192-ecb' => false,
+        'aes-256-cbc' => true,
         'camellia-128-cbc' => true,
         'camellia-128-ecb' => false,
         'camellia-192-cbc' => true,
