@@ -1,0 +1,30 @@
+name: format
+
+on: pull_request
+
+jobs:
+  php-cs-fixer:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 1
+        ref: ${{ github.head_ref }}
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '7.4'
+        extensions: mbstring, dom, fileinfo
+        coverage: xdebug
+        tools: php-cs-fixer
+
+    - name: PHP CS Fixer
+      run: php-cs-fixer fix --config .php_cs.dist
+
+    - name: Commit changed files
+      uses: stefanzweifel/git-auto-commit-action@v4.1.0
+      with:
+        commit_message: Apply PHP CS Fixer changes
+        branch: ${{ github.head_ref }}
