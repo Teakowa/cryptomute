@@ -3,7 +3,7 @@
 namespace Cryptomute\Tests;
 
 use Cryptomute\DataConverter;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Tests if helper methods correctly convert values.
@@ -12,7 +12,7 @@ use PHPUnit_Framework_TestCase;
  *
  * @author Piotr Gołębiewski <cryptomute@gmail.pl>
  */
-class DataConverterTest extends PHPUnit_Framework_TestCase
+class DataConverterTest extends TestCase
 {
     /**
      * @var array

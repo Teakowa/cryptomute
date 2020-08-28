@@ -4,9 +4,9 @@ namespace Cryptomute\Tests;
 
 use Cryptomute\Cryptomute;
 use InvalidArgumentException;
-use PHPUnit_Framework_TestCase;
+use PHPUnit\Framework\TestCase;
 
-class CryptomuteTest extends PHPUnit_Framework_TestCase
+class CryptomuteTest extends TestCase
 {
     public const MIN_VALUE = '0';
     public const MAX_VALUE = '9999999999';
