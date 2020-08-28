@@ -17,8 +17,8 @@ class DataConverter
     /**
      * Converts binary string into decimal string.
      *
-     * @param string $bin    Binary string.
-     * @param int    $length Minimum output length.
+     * @param  string  $bin Binary string.
+     * @param  int  $length Minimum output length.
      *
      * @return string Decimal string.
      */
@@ -33,8 +33,8 @@ class DataConverter
     /**
      * Converts binary string into hexadecimal string.
      *
-     * @param string $bin    Binary string.
-     * @param int    $length Minimum output length.
+     * @param  string  $bin Binary string.
+     * @param  int  $length Minimum output length.
      *
      * @return string Hexadecimal string.
      */
@@ -49,7 +49,7 @@ class DataConverter
     /**
      * Converts binary string into stream of bytes.
      *
-     * @param string $bin Binary string.
+     * @param  string  $bin Binary string.
      *
      * @return mixed Stream of bytes.
      */
@@ -63,8 +63,8 @@ class DataConverter
     /**
      * Converts decimal string into binary string.
      *
-     * @param string $dec    Decimal string.
-     * @param int    $length Minimum output length.
+     * @param  string  $dec Decimal string.
+     * @param  int  $length Minimum output length.
      *
      * @return string Binary string.
      */
@@ -79,8 +79,8 @@ class DataConverter
     /**
      * Converts decimal string into hexadecimal string.
      *
-     * @param string $dec    Decimal string.
-     * @param int    $length Minimum output length.
+     * @param  string  $dec Decimal string.
+     * @param  int  $length Minimum output length.
      *
      * @return string Hexadecimal string.
      */
@@ -95,7 +95,7 @@ class DataConverter
     /**
      * Converts decimal string into stream of bytes.
      *
-     * @param string $dec Decimal string.
+     * @param  string  $dec Decimal string.
      *
      * @return mixed Stream of bytes.
      */
@@ -109,8 +109,8 @@ class DataConverter
     /**
      * Converts hexadecimal string into binary string.
      *
-     * @param string $hex    Hexadecimal string.
-     * @param int    $length Minimum output length.
+     * @param  string  $hex Hexadecimal string.
+     * @param  int  $length Minimum output length.
      *
      * @return string Binary string.
      */
@@ -125,8 +125,8 @@ class DataConverter
     /**
      * Converts hexadecimal string into decimal string.
      *
-     * @param string $hex    Hexadecimal string.
-     * @param int    $length Minimum output length.
+     * @param  string  $hex Hexadecimal string.
+     * @param  int  $length Minimum output length.
      *
      * @return string Decimal string.
      */
@@ -141,7 +141,7 @@ class DataConverter
     /**
      * Converts hexadecimal string into stream of bytes.
      *
-     * @param string $hex Hexadecimal string.
+     * @param  string  $hex Hexadecimal string.
      *
      * @return mixed Stream of bytes.
      */
@@ -155,8 +155,8 @@ class DataConverter
     /**
      * Converts stream of bytes into binary string.
      *
-     * @param mixed $raw    Stream of bytes.
-     * @param int   $length Minimum output length.
+     * @param  mixed  $raw Stream of bytes.
+     * @param  int  $length Minimum output length.
      *
      * @return string Binary string.
      */
@@ -171,8 +171,8 @@ class DataConverter
     /**
      * Converts stream of bytes into decimal string.
      *
-     * @param mixed $raw    Stream of bytes.
-     * @param int   $length Minimum output length.
+     * @param  mixed  $raw Stream of bytes.
+     * @param  int  $length Minimum output length.
      *
      * @return string Decimal string.
      */
@@ -187,8 +187,8 @@ class DataConverter
     /**
      * Converts stream of bytes into hexadecimal string.
      *
-     * @param mixed $raw    Stream of bytes.
-     * @param int   $length Minimum output length.
+     * @param  mixed  $raw Stream of bytes.
+     * @param  int  $length Minimum output length.
      *
      * @return string Hex string.
      */
@@ -203,8 +203,8 @@ class DataConverter
     /**
      * Pad left with zeroes to match given length.
      *
-     * @param string $input
-     * @param int    $length
+     * @param  string  $input
+     * @param  int  $length
      *
      * @return string
      */

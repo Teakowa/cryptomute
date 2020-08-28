@@ -8,26 +8,24 @@ use PHPUnit_Framework_TestCase;
 
 class CryptomuteTest extends PHPUnit_Framework_TestCase
 {
-    const MIN_VALUE = '0';
-    const MAX_VALUE = '9999999999';
-    const TEST_REPEATS = 15;
-
+    public const MIN_VALUE = '0';
+    public const MAX_VALUE = '9999999999';
+    public const TEST_REPEATS = 15;
     public static $testedCiphers = [
         'des-cbc'          => true,
-        'aes-128-cbc'      => true,
-        'aes-128-ecb'      => false,
-        'aes-192-cbc'      => true,
-        'aes-192-ecb'      => false,
+        'aes-128-cbc' => true,
+        'aes-128-ecb' => false,
+        'aes-192-cbc' => true,
+        'aes-192-ecb' => false,
         'camellia-128-cbc' => true,
         'camellia-128-ecb' => false,
         'camellia-192-cbc' => true,
         'camellia-192-ecb' => false,
     ];
-
     public static $testedRounds = [
-        3  => 'minimum',
-        5  => 'normal',
-        7  => 'recommended',
+        3 => 'minimum',
+        5 => 'normal',
+        7 => 'recommended',
         11 => 'insane',
     ];
 
@@ -136,7 +134,6 @@ class CryptomuteTest extends PHPUnit_Framework_TestCase
 
                         $encrypted1 = $cryptomute->encrypt($input, $base, false, 'foo', $iv);
                         $encrypted2 = $cryptomute->encrypt($input, $base, false, 'bar', $iv);
-
                         $this->assertNotEquals($encrypted1, $encrypted2, sprintf(
                             $message,
                             $cipher,
@@ -208,10 +205,10 @@ class CryptomuteTest extends PHPUnit_Framework_TestCase
     }
 
     /**
-     * @param string      $cipher
-     * @param int         $rounds
-     * @param string|null $minVal
-     * @param string|null $maxVal
+     * @param  string  $cipher
+     * @param  int  $rounds
+     * @param  string|null  $minVal
+     * @param  string|null  $maxVal
      *
      * @return Cryptomute
      */

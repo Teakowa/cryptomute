@@ -1,6 +1,5 @@
 <?php
 
-
 namespace Cryptomute\Tests;
 
 use Cryptomute\DataConverter;
@@ -79,7 +78,7 @@ class DataConverterTest extends PHPUnit_Framework_TestCase
 
         $message = 'Input %s padded left to %d length should output %s.';
         foreach ($testData as $input => $tests) {
-            foreach($tests as $length => $expected) {
+            foreach ($tests as $length => $expected) {
                 $result = DataConverter::pad($input, $length);
 
                 $this->assertEquals($expected, $result, sprintf($message, $input, $length, $expected));

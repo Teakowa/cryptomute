@@ -6,7 +6,7 @@ use InvalidArgumentException;
 use LogicException;
 
 /**
- * Cryptomute
+ * Cryptomute.
  *
  * (c) 2016 Piotr Gołębiewski
  *
@@ -18,104 +18,84 @@ use LogicException;
 class Cryptomute
 {
     const VERSION = '1.0.0';
-
-    const KEY_MIN_LENGTH = 16;
-
-    const MIN_ROUNDS = 3;
-
-    const DEFAULT_MIN_VALUE = '0';
-
-    const DEFAULT_MAX_VALUE = '9999999999';
-
+    public const KEY_MIN_LENGTH = 16;
+    public const MIN_ROUNDS = 3;
+    public const DEFAULT_MIN_VALUE = '0';
+    public const DEFAULT_MAX_VALUE = '9999999999';
     /**
      * @var array
      */
     public static $allowedCiphers = [
         'des-cbc'          => ['iv' => true,  'length' => 64],
-        'aes-128-cbc'      => ['iv' => true,  'length' => 128],
-        'aes-128-ecb'      => ['iv' => false, 'length' => 128],
-        'aes-192-cbc'      => ['iv' => true,  'length' => 192],
-        'aes-192-ecb'      => ['iv' => false, 'length' => 192],
-        'camellia-128-cbc' => ['iv' => true,  'length' => 128],
+        'aes-128-cbc' => ['iv' => true, 'length' => 128],
+        'aes-128-ecb' => ['iv' => false, 'length' => 128],
+        'aes-192-cbc' => ['iv' => true, 'length' => 192],
+        'aes-192-ecb' => ['iv' => false, 'length' => 192],
+        'camellia-128-cbc' => ['iv' => true, 'length' => 128],
         'camellia-128-ecb' => ['iv' => false, 'length' => 128],
-        'camellia-192-cbc' => ['iv' => true,  'length' => 192],
+        'camellia-192-cbc' => ['iv' => true, 'length' => 192],
         'camellia-192-ecb' => ['iv' => false, 'length' => 192],
     ];
-
     /**
      * @var array
      */
     public static $allowedBases = [
-        2  => '/^[0-1]+$/',
+        2 => '/^[0-1]+$/',
         10 => '/^[0-9]+$/',
         16 => '/^[a-f0-9]+$/',
     ];
-
     /**
      * @var string
      */
     protected $minValue;
-
     /**
      * @var string
      */
     protected $maxValue;
-
     /**
      * @var string
      */
     protected $cipher;
-
     /**
      * @var string
      */
     protected $password;
-
     /**
      * @var string
      */
     protected $key;
-
     /**
      * @var array
      */
     protected $roundKeys;
-
     /**
      * @var string
      */
     protected $iv;
-
     /**
      * @var int
      */
     protected $rounds;
-
     /**
      * @var int
      */
     protected $cipherLength;
-
     /**
      * @var int
      */
     protected $blockSize;
-
     /**
      * @var int
      */
     protected $binSize;
-
     /**
      * @var int
      */
     protected $decSize;
-
     /**
      * @var int
      */
     protected $hexSize;
-
     /**
      * @var int
      */
@@ -124,16 +104,16 @@ class Cryptomute
     /**
      * Cryptomute constructor.
      *
-     * @param string $cipher  Cipher used to encrypt.
-     * @param string $baseKey Base key, from which all round keys are derrived.
-     * @param int    $rounds  Number of rounds.
+     * @param  string  $cipher Cipher used to encrypt.
+     * @param  string  $baseKey Base key, from which all round keys are derrived.
+     * @param  int  $rounds Number of rounds.
      *
      * @throws InvalidArgumentException If provided invalid constructor parameters.
      * @throws LogicException           If side size is longer than cipher length.
      */
     public function __construct($cipher, $baseKey, $rounds = 3)
     {
-        if (!array_key_exists($cipher, self::$allowedCiphers)) {
+        if (! array_key_exists($cipher, self::$allowedCiphers)) {
             throw new InvalidArgumentException(sprintf(
                 'Cipher must be one of "%s".',
                 implode(', ', array_keys(self::$allowedCiphers))
@@ -144,7 +124,7 @@ class Cryptomute
         $this->cipherLength = self::$allowedCiphers[$cipher]['length'];
         $this->setValueRange(self::DEFAULT_MIN_VALUE, self::DEFAULT_MAX_VALUE);
 
-        if (!is_int($rounds) || $rounds < self::MIN_ROUNDS || $rounds % 2 !== 1) {
+        if (! is_int($rounds) || $rounds < self::MIN_ROUNDS || $rounds % 2 !== 1) {
             throw new InvalidArgumentException(sprintf(
                 'Number of rounds must be an odd integer greater or equal %d',
                 self::MIN_ROUNDS
@@ -166,12 +146,11 @@ class Cryptomute
     /**
      * Set value range and pad sizes.
      *
-     * @param string $minValue Minimum value. String representation of positive integer value or zero.
-     * @param string $maxValue Maximum value. String representation of positive integer value.
-     *
-     * @throws InvalidArgumentException If provided invalid parameters.
+     * @param  string  $minValue Minimum value. String representation of positive integer value or zero.
+     * @param  string  $maxValue Maximum value. String representation of positive integer value.
      *
      * @return Cryptomute
+     * @throws InvalidArgumentException If provided invalid parameters.
      */
     public function setValueRange($minValue, $maxValue)
     {
@@ -222,11 +201,11 @@ class Cryptomute
     /**
      * Encrypts input data. Acts as a public alias for _encryptInternal method.
      *
-     * @param string      $input    String representation of input number.
-     * @param int         $base     Input number base.
-     * @param bool        $pad      Pad left with zeroes?
-     * @param string|null $password Encryption password.
-     * @param string|null $iv       Encryption initialization vector. Must be unique!
+     * @param  string  $input String representation of input number.
+     * @param  int  $base Input number base.
+     * @param  bool  $pad Pad left with zeroes?
+     * @param  string|null  $password Encryption password.
+     * @param  string|null  $iv Encryption initialization vector. Must be unique!
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
@@ -238,12 +217,12 @@ class Cryptomute
     /**
      * Encrypts input data.
      *
-     * @param string      $input    String representation of input number.
-     * @param int         $base     Input number base.
-     * @param bool        $pad      Pad left with zeroes?
-     * @param string|null $password Encryption password.
-     * @param string|null $iv       Encryption initialization vector. Must be unique!
-     * @param bool        $checkVal Should check if input value is in range?
+     * @param  string  $input String representation of input number.
+     * @param  int  $base Input number base.
+     * @param  bool  $pad Pad left with zeroes?
+     * @param  string|null  $password Encryption password.
+     * @param  string|null  $iv Encryption initialization vector. Must be unique!
+     * @param  bool  $checkVal Should check if input value is in range?
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
@@ -266,7 +245,7 @@ class Cryptomute
             $newLeft = $right;
             $newRight = $this->_binaryXor($left, $round);
 
-            $binary = $newLeft . $newRight;
+            $binary = $newLeft.$newRight;
         }
 
         $output = $this->_convertFromBin($binary, $base, $pad);
@@ -280,11 +259,11 @@ class Cryptomute
     /**
      * Decrypts input data.
      *
-     * @param string      $input    Encrypted input.
-     * @param int         $base     Input data base.
-     * @param bool        $pad      Pad left with zeroes?
-     * @param string|null $password Decryption password.
-     * @param string|null $iv       Decryption initialization vector.
+     * @param  string  $input Encrypted input.
+     * @param  int  $base Input data base.
+     * @param  bool  $pad Pad left with zeroes?
+     * @param  string|null  $password Decryption password.
+     * @param  string|null  $iv Decryption initialization vector.
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
@@ -307,7 +286,7 @@ class Cryptomute
             $newLeft = $this->_binaryXor($right, $round);
             $newRight = $left;
 
-            $binary = $newLeft . $newRight;
+            $binary = $newLeft.$newRight;
         }
 
         $output = $this->_convertFromBin($binary, $base, $pad);
@@ -321,9 +300,9 @@ class Cryptomute
     /**
      * Encrypt helper.
      *
-     * @param string      $input
-     * @param string      $password
-     * @param string|null $iv
+     * @param  string  $input
+     * @param  string  $password
+     * @param  string|null  $iv
      *
      * @return string Steam of encrypted bytes.
      */
@@ -337,16 +316,16 @@ class Cryptomute
     /**
      * Round function helper.
      *
-     * @param string      $input
-     * @param string      $key
-     * @param string      $hashPassword
-     * @param string|null $iv
+     * @param  string  $input
+     * @param  string  $key
+     * @param  string  $hashPassword
+     * @param  string|null  $iv
      *
      * @return string Binary string.
      */
     private function _round($input, $key, $hashPassword, $iv = null)
     {
-        $bin = DataConverter::rawToBin($this->_encrypt($input . $key, $hashPassword, $iv));
+        $bin = DataConverter::rawToBin($this->_encrypt($input.$key, $hashPassword, $iv));
 
         return substr($bin, -1 * $this->sideSize);
     }
@@ -354,8 +333,8 @@ class Cryptomute
     /**
      * Binary xor helper.
      *
-     * @param string $left
-     * @param string $round
+     * @param  string  $left
+     * @param  string  $round
      *
      * @return string Binary string.
      */
@@ -374,8 +353,8 @@ class Cryptomute
     /**
      * Helper method converting input data to binary string.
      *
-     * @param string $input
-     * @param string $base
+     * @param  string  $input
+     * @param  string  $base
      *
      * @return string
      */
@@ -394,9 +373,9 @@ class Cryptomute
     /**
      * Helper method converting input data from binary string.
      *
-     * @param string $binary
-     * @param string $type
-     * @param string $pad
+     * @param  string  $binary
+     * @param  string  $type
+     * @param  string  $pad
      *
      * @return string
      */
@@ -415,15 +394,15 @@ class Cryptomute
     /**
      * Validates input data.
      *
-     * @param string $input
-     * @param string $base
-     * @param bool   $checkDomain Should check if input is in domain?
+     * @param  string  $input
+     * @param  string  $base
+     * @param  bool  $checkDomain Should check if input is in domain?
      *
      * @throws InvalidArgumentException If provided invalid type.
      */
     private function _validateInput($input, $base, $checkDomain = false)
     {
-        if (!array_key_exists($base, self::$allowedBases)) {
+        if (! array_key_exists($base, self::$allowedBases)) {
             throw new InvalidArgumentException(sprintf(
                 'Type must be one of "%s".',
                 implode(', ', array_keys(self::$allowedBases))
@@ -455,7 +434,7 @@ class Cryptomute
     /**
      * Validates initialization vector.
      *
-     * @param string|null $iv
+     * @param  string|null  $iv
      */
     private function _validateIv($iv = null)
     {
@@ -477,7 +456,7 @@ class Cryptomute
     /**
      * Hashes the password.
      *
-     * @param string|null $password
+     * @param  string|null  $password
      *
      * @return string
      */
@@ -493,8 +472,8 @@ class Cryptomute
     /**
      * Generates hash keys.
      *
-     * @param string|null $hashPassword
-     * @param string|null $iv
+     * @param  string|null  $hashPassword
+     * @param  string|null  $iv
      *
      * @return array
      */
