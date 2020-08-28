@@ -1,5 +1,5 @@
 {
-    "name": "loostro/cryptomute",
+    "name": "teakowa/cryptomute",
     "description": "Encrypt numeric data (binary, decimal, hex) preserving it's format (eg. 16-digits card number to 16-digits encrypted number).",
     "keywords": ["cryptomute", "permute", "encode", "decode", "encrypt", "decrypt", "obfuscate", "format-preserving"],
     "type": "library",
