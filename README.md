@@ -2,10 +2,12 @@
 
 A small PHP class implementing Format Preserving Encryption via Feistel Network.
 
-![PHP from Packagist](https://img.shields.io/packagist/php-v/teakowa/cryptomute?style=flat-square)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/teakowa/cryptomute.svg?style=flat-square)](https://packagist.org/packages/teakowa/cryptomute)
+[![PHP from Packagist](https://img.shields.io/packagist/php-v/teakowa/cryptomute?style=flat-square)](https://packagist.org/packages/teakowa/cryptomute)
 [![LICENSE](https://img.shields.io/badge/License-Apache--2.0-green.svg?style=flat-square)](LICENSE)
 [![LICENSE](https://img.shields.io/badge/License-Anti%20996-blue.svg?style=flat-square)](https://github.com/996icu/996.ICU/blob/master/LICENSE)
 [![996.icu](https://img.shields.io/badge/Link-996.icu-red.svg?style=flat-square)](https://996.icu)
+[![Total Downloads](https://img.shields.io/packagist/dt/teakowa/cryptomute.svg?style=flat-square)](https://packagist.org/packages/teakowa/cryptomute)
 
 ## 1. Installation
 
@@ -24,8 +26,6 @@ And run: `php composer.phar install`. After that you can require the autoloader 
 ## 2. Usage
 
 ``` php
-require_once 'vendor/autoload.php';
-
 use Cryptomute\Cryptomute;
 
 $cryptomute = new Cryptomute(
