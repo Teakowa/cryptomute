@@ -458,7 +458,7 @@ class Cryptomute
     private function _hashPassword($password = null): string
     {
         if (null !== $password) {
-            $this->password = md5($password);
+            $this->password = hash('sha3-512', $password);
         }
 
         return $this->password;
