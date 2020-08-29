@@ -20,7 +20,7 @@ class Cryptomute
     public const KEY_MIN_LENGTH = 16;
     public const MIN_ROUNDS = 3;
     public const DEFAULT_MIN_VALUE = '0';
-    public const DEFAULT_MAX_VALUE = '999999999999999';
+    public const DEFAULT_MAX_VALUE = '99999999999999999999'; // 20 digits
     /**
      * @var array
      */
