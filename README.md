@@ -1,4 +1,4 @@
-# Cryptomute
+# Cryptomute ![test](https://github.com/Teakowa/cryptomute/workflows/test/badge.svg)
 
 A small PHP class implementing Format Preserving Encryption via Feistel Network.
 
@@ -69,14 +69,11 @@ Cipher             | IV
 ------------------ | ---
 `des-cbc`          | yes
 `aes-128-cbc`      | yes
-`aes-128-ecb`      | no
 `aes-192-cbc`      | yes
-`aes-192-ecb`      | no
 `aes-256-cbc`      | yes
 `camellia-128-cbc` | yes
-`camellia-128-ecb` | no
 `camellia-192-cbc` | yes
-`camellia-192-ecb` | no
+`camellia-256-cbc` | yes
 
 ### 3.2 Key
 
@@ -91,7 +88,7 @@ but also slower. Recommended value is at least 7.
 
 ### 4.1 setValueRange(`$minValue`, `$maxValue`)
 
-Sets minimum and maximum values. If the result is out of range it will be re-encrypted (or re-decrypted) until ouput
+Sets minimum and maximum values. If the result is out of range it will be re-encrypted (or re-decrypted) until output
 is in range.
 
 ### 4.2 encrypt(`$plainValue`, `$base`, `$pad`, `$password`, `$iv`)
