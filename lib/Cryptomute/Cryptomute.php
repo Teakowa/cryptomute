@@ -25,7 +25,7 @@ class Cryptomute
      * @var array
      */
     public static $allowedCiphers = [
-        'des-cbc'          => ['iv' => true,  'length' => 64],
+        'des-cbc' => ['iv' => true, 'length' => 64],
         'aes-128-cbc' => ['iv' => true, 'length' => 128],
         'aes-192-cbc' => ['iv' => true, 'length' => 192],
         'aes-256-cbc' => ['iv' => true, 'length' => 256],
@@ -369,7 +369,7 @@ class Cryptomute
      * Helper method converting input data from binary string.
      *
      * @param  string  $binary
-     * @param  string  $type
+     * @param  string  $base
      * @param  string  $pad
      *
      * @return string
@@ -395,7 +395,7 @@ class Cryptomute
      *
      * @throws InvalidArgumentException If provided invalid type.
      */
-    private function _validateInput(string $input, string $base, bool $checkDomain = false)
+    private function _validateInput(string $input, string $base, bool $checkDomain = false): void
     {
         if (! array_key_exists($base, self::$allowedBases)) {
             throw new InvalidArgumentException(sprintf(

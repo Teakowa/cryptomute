@@ -12,7 +12,7 @@ class CryptomuteTest extends TestCase
     public const MAX_VALUE = '9999999999';
     public const TEST_REPEATS = 15;
     public static $testedCiphers = [
-        'des-cbc'          => true,
+        'des-cbc' => true,
         'aes-128-cbc' => true,
         'aes-192-cbc' => true,
         'aes-256-cbc' => true,
