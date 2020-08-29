@@ -14,7 +14,7 @@ You can install Cryptomute via [Composer](http://getcomposer.org) (packagist has
 ``` json
 {
     "require": {
-        "teakowa/cryptomute": "^1.0"
+        "teakowa/cryptomute": "^1.4"
     }
 }
 ```

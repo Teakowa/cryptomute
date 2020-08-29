@@ -3,7 +3,7 @@
     "description": "Encrypt numeric data (binary, decimal, hex) preserving it's format (eg. 16-digits card number to 16-digits encrypted number).",
     "keywords": ["cryptomute", "permute", "encode", "decode", "encrypt", "decrypt", "obfuscate", "format-preserving"],
     "type": "library",
-    "license": "MIT",
+    "license": "Apache-2.0",
     "authors": [
         {
             "name": "Teakowa",
@@ -31,7 +31,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "1.0-dev"
+            "dev-master": "1.x-dev"
         }
     },
     "config": {
