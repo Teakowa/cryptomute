@@ -2,6 +2,12 @@
 ## [Unreleased]
 
 
+<a name="v1.4.1"></a>
+## [v1.4.1] - 2020-08-29
+### Code Refactoring
+- **DEFAULT_MAX_VALUE:** support 20 digits from 15 digits
+
+
 <a name="v1.4.0"></a>
 ## [v1.4.0] - 2020-08-29
 ### Code Refactoring
@@ -61,7 +67,8 @@
 - Merge pull request [#1](https://github.com/teakowa/cryptomute/issues/1) from loostro/feature-add-key-and-password-setters
 
 
-[Unreleased]: https://github.com/teakowa/cryptomute/compare/v1.4.0...HEAD
+[Unreleased]: https://github.com/teakowa/cryptomute/compare/v1.4.1...HEAD
+[v1.4.1]: https://github.com/teakowa/cryptomute/compare/v1.4.0...v1.4.1
 [v1.4.0]: https://github.com/teakowa/cryptomute/compare/v1.3.0...v1.4.0
 [v1.3.0]: https://github.com/teakowa/cryptomute/compare/v1.2.0...v1.3.0
 [v1.2.0]: https://github.com/teakowa/cryptomute/compare/v1.1.0...v1.2.0
