@@ -18,6 +18,7 @@ class CryptomuteTest extends TestCase
         'aes-256-cbc' => true,
         'camellia-128-cbc' => true,
         'camellia-192-cbc' => true,
+        'camellia-256-cbc' => true,
     ];
     public static $testedRounds = [
         3 => 'minimum',

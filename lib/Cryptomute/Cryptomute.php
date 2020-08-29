@@ -31,6 +31,7 @@ class Cryptomute
         'aes-256-cbc' => ['iv' => true, 'length' => 256],
         'camellia-128-cbc' => ['iv' => true, 'length' => 128],
         'camellia-192-cbc' => ['iv' => true, 'length' => 192],
+        'camellia-256-cbc' => ['iv' => true, 'length' => 256],
     ];
     /**
      * @var array
