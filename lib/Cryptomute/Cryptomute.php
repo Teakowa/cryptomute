@@ -27,14 +27,10 @@ class Cryptomute
     public static $allowedCiphers = [
         'des-cbc'          => ['iv' => true,  'length' => 64],
         'aes-128-cbc' => ['iv' => true, 'length' => 128],
-        'aes-128-ecb' => ['iv' => false, 'length' => 128],
         'aes-192-cbc' => ['iv' => true, 'length' => 192],
-        'aes-192-ecb' => ['iv' => false, 'length' => 192],
         'aes-256-cbc' => ['iv' => true, 'length' => 256],
         'camellia-128-cbc' => ['iv' => true, 'length' => 128],
-        'camellia-128-ecb' => ['iv' => false, 'length' => 128],
         'camellia-192-cbc' => ['iv' => true, 'length' => 192],
-        'camellia-192-ecb' => ['iv' => false, 'length' => 192],
     ];
     /**
      * @var array
@@ -308,9 +304,7 @@ class Cryptomute
      */
     private function _encrypt(string $input, string $password, $iv = null): string
     {
-        return (self::$allowedCiphers[$this->cipher]['iv'])
-            ? openssl_encrypt($input, $this->cipher, $password, true, $iv)
-            : openssl_encrypt($input, $this->cipher, $password, true);
+        return openssl_encrypt($input, $this->cipher, $password, true, $iv);
     }
 
     /**
