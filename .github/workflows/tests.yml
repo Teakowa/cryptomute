@@ -15,35 +15,57 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        php-versions: ['7.2', '7.3', '7.4']
+        operating-system: [ ubuntu-latest, windows-latest, macOS-latest ]
+        php-versions: [ '7.4', '8.0', '8.1' ]
+        stability: [ prefer-lowest, prefer-stable ]
       fail-fast: false
-    name: PHP ${{ matrix.php-versions }} Test on ${{ matrix.operating-system }}
+    name: PHP ${{ matrix.php-versions }} Test - ${{ matrix.operating-system }} - ${{ matrix.stability }}
     steps:
-    - uses: actions/checkout@v2
-      with:
-        fetch-depth: 1
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
 
-    - name: Setup PHP
-      uses: shivammathur/setup-php@v2
-      with:
-        php-version: ${{ matrix.php-versions }}
-        extensions: mbstring, dom, fileinfo, intl
-        coverage: xdebug
-        tools: php-cs-fixer, phpunit
+      - name: Setup PHP ${{ matrix.php-versions }}
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php-versions }}
+          extensions: dom, curl, libxml, mbstring, zip, pcntl, pdo, sqlite, pdo_sqlite, gd, redis, memcached
+          coverage: xdebug
+          tools: php-cs-fixer, phpunit, composer:v2
 
-    - name: Get composer cache directory
-      id: composer-cache
-      run: echo "::set-output name=dir::$(composer config cache-files-dir)"
+      - name: Get composer cache directory
+        id: composer-cache
+        run: echo "::set-output name=dir::$(composer config cache-files-dir)"
 
-    - name: Cache composer dependencies
-      uses: actions/cache@v1
-      with:
-        path: ${{ steps.composer-cache.outputs.dir }}
-        key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
-        restore-keys: ${{ runner.os }}-composer-
+      - name: Cache composer dependencies
+        uses: actions/cache@v2.1.6
+        with:
+          path: ${{ steps.composer-cache.outputs.dir }}
+          key: ${{ runner.os }}-composer-${{ hashFiles('**/composer.lock') }}
+          restore-keys: ${{ runner.os }}-composer-
 
-    - name: Composer dependencies
-      run: composer install --no-ansi --no-interaction --no-scripts --no-suggest --no-progress --prefer-dist
-    - name: Run Testsuite
-      run: vendor/bin/phpunit tests/ --coverage-text --colors=never --coverage-html=coverage
+      - name: Set Minimum PHP 8.0 Versions
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer require guzzlehttp/guzzle:^7.2 --no-interaction --no-update
+        if: matrix.php-versions >= 8
+
+      - name: Set Minimum PHP 8.1 Versions
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer require symfony/symfony:5.4.x-dev league/commonmark:^2.0.2 phpunit/phpunit:^9.5.8 --no-interaction --no-update
+        if: matrix.php-versions >= 8.1
+
+      - name: Install dependencies
+        uses: nick-invision/retry@v1
+        with:
+          timeout_minutes: 5
+          max_attempts: 5
+          command: composer update --${{ matrix.stability }} --prefer-dist --no-interaction --no-progress
+
+      - name: Run Testsuite
+        run: vendor/bin/phpunit tests/ --coverage-text --colors=never --coverage-html=coverage
