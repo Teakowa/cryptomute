@@ -6,22 +6,27 @@ jobs:
   php-cs-fixer:
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        php-versions: [ '7.4' ]
+      fail-fast: false
+
     steps:
     - uses: actions/checkout@v2
       with:
         fetch-depth: 1
         ref: ${{ github.head_ref }}
 
-    - name: Setup PHP
+    - name: Setup PHP ${{ matrix.php-versions }}
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '7.4'
+        php-version: ${{ matrix.php-versions }}
         extensions: mbstring, dom, fileinfo
         coverage: xdebug
         tools: php-cs-fixer
 
     - name: PHP CS Fixer
-      run: php-cs-fixer fix --config .php_cs.dist
+      run: php-cs-fixer fix --config .php-cs-fixer.dist.php
 
     - name: Commit changed files
       uses: stefanzweifel/git-auto-commit-action@v4.1.0

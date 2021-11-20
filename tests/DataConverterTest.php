@@ -45,19 +45,19 @@ class DataConverterTest extends TestCase
             ],
             '32-bit signed integer max value'  => [
                 'decimal'     => '2147483647',
-                'hexadecimal' => '7'.str_repeat('f', 7),
+                'hexadecimal' => '7' . str_repeat('f', 7),
                 'binary'      => str_repeat('1', 31),
                 'raw'         => gmp_export(gmp_init('2147483647', 10)),
             ],
             '64-bit signed integer max value'  => [
                 'decimal'     => '9223372036854775807',
-                'hexadecimal' => '7'.str_repeat('f', 15),
+                'hexadecimal' => '7' . str_repeat('f', 15),
                 'binary'      => str_repeat('1', 63),
                 'raw'         => gmp_export(gmp_init('9223372036854775807', 10)),
             ],
             '128-bit signed integer max value' => [
                 'decimal'     => '170141183460469231731687303715884105727',
-                'hexadecimal' => '7'.str_repeat('f', 31),
+                'hexadecimal' => '7' . str_repeat('f', 31),
                 'binary'      => str_repeat('1', 127),
                 'raw'         => gmp_export(gmp_init('170141183460469231731687303715884105727', 10)),
             ],

@@ -110,7 +110,7 @@ class Cryptomute
      */
     public function __construct(string $cipher, string $baseKey, int $rounds = 3)
     {
-        if (! array_key_exists($cipher, self::$allowedCiphers)) {
+        if (!array_key_exists($cipher, self::$allowedCiphers)) {
             throw new InvalidArgumentException(sprintf(
                 'Cipher must be one of "%s".',
                 implode(', ', array_keys(self::$allowedCiphers))
@@ -121,7 +121,7 @@ class Cryptomute
         $this->cipherLength = self::$allowedCiphers[$cipher]['length'];
         $this->setValueRange(self::DEFAULT_MIN_VALUE, self::DEFAULT_MAX_VALUE);
 
-        if (! is_int($rounds) || $rounds < self::MIN_ROUNDS || $rounds % 2 !== 1) {
+        if (!is_int($rounds) || $rounds < self::MIN_ROUNDS || $rounds % 2 !== 1) {
             throw new InvalidArgumentException(sprintf(
                 'Number of rounds must be an odd integer greater or equal %d',
                 self::MIN_ROUNDS
@@ -242,7 +242,7 @@ class Cryptomute
             $newLeft = $right;
             $newRight = $this->_binaryXor($left, $round);
 
-            $binary = $newLeft.$newRight;
+            $binary = $newLeft . $newRight;
         }
 
         $output = $this->_convertFromBin($binary, $base, $pad);
@@ -283,7 +283,7 @@ class Cryptomute
             $newLeft = $this->_binaryXor($right, $round);
             $newRight = $left;
 
-            $binary = $newLeft.$newRight;
+            $binary = $newLeft . $newRight;
         }
 
         $output = $this->_convertFromBin($binary, $base, $pad);
@@ -320,7 +320,7 @@ class Cryptomute
      */
     private function _round(string $input, string $key, string $hashPassword, $iv = null): string
     {
-        $bin = DataConverter::rawToBin($this->_encrypt($input.$key, $hashPassword, $iv));
+        $bin = DataConverter::rawToBin($this->_encrypt($input . $key, $hashPassword, $iv));
 
         return substr($bin, -1 * $this->sideSize);
     }
@@ -397,7 +397,7 @@ class Cryptomute
      */
     private function _validateInput(string $input, string $base, bool $checkDomain = false): void
     {
-        if (! array_key_exists($base, self::$allowedBases)) {
+        if (!array_key_exists($base, self::$allowedBases)) {
             throw new InvalidArgumentException(sprintf(
                 'Type must be one of "%s".',
                 implode(', ', array_keys(self::$allowedBases))
