@@ -45,9 +45,6 @@
             "failComment": false,
             "labels": false,
             "releasedLabels": false
-        }],
-        ["@semantic-release/npm", {
-            "npmPublish": false
         }]
     ]
 }
