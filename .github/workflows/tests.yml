@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         operating-system: [ ubuntu-latest, windows-latest, macOS-latest ]
-        php-versions: [ '7.4', '8.0', '8.1' ]
+        php-versions: [ '8.0', '8.1' ]
         stability: [ prefer-lowest, prefer-stable ]
       fail-fast: false
     name: PHP ${{ matrix.php-versions }} Test - ${{ matrix.operating-system }} - ${{ matrix.stability }}
