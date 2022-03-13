@@ -11,7 +11,7 @@ class CryptomuteTest extends TestCase
     public const MIN_VALUE = '0';
     public const MAX_VALUE = '9999999999';
     public const TEST_REPEATS = 15;
-    public static $testedCiphers = [
+    public static array $testedCiphers = [
         'des-cbc' => true,
         'aes-128-cbc' => true,
         'aes-192-cbc' => true,
@@ -20,7 +20,7 @@ class CryptomuteTest extends TestCase
         'camellia-192-cbc' => true,
         'camellia-256-cbc' => true,
     ];
-    public static $testedRounds = [
+    public static array $testedRounds = [
         3 => 'minimum',
         5 => 'normal',
         7 => 'recommended',

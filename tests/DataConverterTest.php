@@ -17,7 +17,7 @@ class DataConverterTest extends TestCase
     /**
      * @var array
      */
-    public static $convertData;
+    public static array $convertData;
 
     /**
      * Sets test data.

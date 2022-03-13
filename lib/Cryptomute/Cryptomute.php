@@ -24,7 +24,7 @@ class Cryptomute
     /**
      * @var array
      */
-    public static $allowedCiphers = [
+    public static array $allowedCiphers = [
         'des-cbc' => ['iv' => true, 'length' => 64],
         'aes-128-cbc' => ['iv' => true, 'length' => 128],
         'aes-192-cbc' => ['iv' => true, 'length' => 192],
@@ -36,67 +36,67 @@ class Cryptomute
     /**
      * @var array
      */
-    public static $allowedBases = [
+    public static array $allowedBases = [
         2 => '/^[0-1]+$/',
         10 => '/^[0-9]+$/',
         16 => '/^[a-f0-9]+$/',
     ];
     /**
-     * @var string
+     * @var string|null
      */
-    protected $minValue;
+    private ?string $minValue;
+    /**
+     * @var string|null
+     */
+    private ?string $maxValue;
     /**
      * @var string
      */
-    protected $maxValue;
+    private string $cipher;
     /**
      * @var string
      */
-    protected $cipher;
+    private string $key;
     /**
-     * @var string
+     * @var array|null
      */
-    protected $password;
+    private ?array $roundKeys;
     /**
-     * @var string
+     * @var string|null
      */
-    protected $key;
-    /**
-     * @var array
-     */
-    protected $roundKeys;
-    /**
-     * @var string
-     */
-    protected $iv;
+    private ?string $iv;
     /**
      * @var int
      */
-    protected $rounds;
+    private int $rounds;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $cipherLength;
+    private ?int $roundscipherLength;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $blockSize;
+    private ?int $roundblockSize;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $binSize;
+    private mixed $binSize;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $decSize;
+    private mixed $decSize;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $hexSize;
+    private mixed $hexSize;
     /**
-     * @var int
+     * @var int|null
      */
-    protected $sideSize;
+    private mixed $sideSize;
+    /**
+     * @var mixed
+     */
+    private mixed $cipherLength;
 
     /**
      * Cryptomute constructor.
@@ -182,7 +182,7 @@ class Cryptomute
         $this->decSize = strlen($this->maxValue);
         $this->hexSize = $this->binSize / 4;
 
-        $this->sideSize = (int) $this->binSize / 2;
+        $this->sideSize = $this->binSize / 2;
 
         if ($this->sideSize > $this->cipherLength) {
             throw new LogicException(sprintf(
@@ -206,7 +206,7 @@ class Cryptomute
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
-    public function encrypt(string $input, int $base = 10, bool $pad = false, $password = null, $iv = null): string
+    public function encrypt(string $input, int $base = 10, bool $pad = false, string $password = null, string $iv = null): string
     {
         return $this->_encryptInternal($input, $base, $pad, $password, $iv, true);
     }
@@ -217,13 +217,13 @@ class Cryptomute
      * @param  string  $input String representation of input number.
      * @param  int  $base Input number base.
      * @param  bool  $pad Pad left with zeroes?
-     * @param  string|null  $password Encryption password.
-     * @param  string|null  $iv Encryption initialization vector. Must be unique!
+     * @param  string  $password Encryption password.
+     * @param  string  $iv Encryption initialization vector. Must be unique!
      * @param  bool  $checkVal Should check if input value is in range?
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
-    private function _encryptInternal(string $input, int $base, bool $pad, $password, $iv, $checkVal = false): string
+    private function _encryptInternal(string $input, int $base, bool $pad, string $password, string $iv, bool $checkVal = false): string
     {
         $this->_validateInput($input, $base, $checkVal);
         $this->_validateIv($iv);
@@ -264,7 +264,7 @@ class Cryptomute
      *
      * @return string Outputs encrypted data in the same format as input data.
      */
-    public function decrypt(string $input, int $base = 10, bool $pad = false, $password = null, $iv = null): string
+    public function decrypt(string $input, int $base = 10, bool $pad = false, string $password = null, string $iv = null): string
     {
         $this->_validateInput($input, $base);
         $this->_validateIv($iv);
@@ -299,11 +299,11 @@ class Cryptomute
      *
      * @param  string  $input
      * @param  string  $password
-     * @param  string|null  $iv
+     * @param  string  $iv
      *
      * @return string Steam of encrypted bytes.
      */
-    private function _encrypt(string $input, string $password, $iv = null): string
+    private function _encrypt(string $input, string $password, string $iv): string
     {
         return openssl_encrypt($input, $this->cipher, $password, true, $iv);
     }
@@ -314,11 +314,11 @@ class Cryptomute
      * @param  string  $input
      * @param  string  $key
      * @param  string  $hashPassword
-     * @param  string|null  $iv
+     * @param  string  $iv
      *
      * @return string Binary string.
      */
-    private function _round(string $input, string $key, string $hashPassword, $iv = null): string
+    private function _round(string $input, string $key, string $hashPassword, string $iv): string
     {
         $bin = DataConverter::rawToBin($this->_encrypt($input . $key, $hashPassword, $iv));
 
@@ -431,16 +431,16 @@ class Cryptomute
      *
      * @param  string|null  $iv
      */
-    private function _validateIv($iv = null): void
+    private function _validateIv(string $iv = null): void
     {
         if (self::$allowedCiphers[$this->cipher]['iv']) {
-            $this->blockSize = openssl_cipher_iv_length($this->cipher);
+            $blockSize = openssl_cipher_iv_length($this->cipher);
 
             $ivLength = mb_strlen($iv, '8bit');
-            if ($ivLength !== $this->blockSize) {
+            if ($ivLength !== $blockSize) {
                 throw new InvalidArgumentException(sprintf(
                     'Initialization vector of %d bytes is required for cipher "%s", %d given.',
-                    $this->blockSize,
+                    $blockSize,
                     $this->cipher,
                     $ivLength
                 ));
@@ -451,28 +451,24 @@ class Cryptomute
     /**
      * Hashes the password.
      *
-     * @param  string|null  $password
+     * @param  string  $password
      *
      * @return string
      */
-    private function _hashPassword($password = null): string
+    private function _hashPassword(string $password): string
     {
-        if (null !== $password) {
-            $this->password = hash('sha3-512', $password);
-        }
-
-        return $this->password;
+        return hash('sha3-512', $password);
     }
 
     /**
      * Generates hash keys.
      *
-     * @param  string|null  $hashPassword
-     * @param  string|null  $iv
+     * @param  string  $hashPassword
+     * @param  string  $iv
      *
      * @return array
      */
-    private function _roundKeys($hashPassword = null, $iv = null): array
+    private function _roundKeys(string $hashPassword, string $iv): array
     {
         $roundKeys = [];
         $prevKey = $this->_encrypt($this->key, $hashPassword, $iv);
