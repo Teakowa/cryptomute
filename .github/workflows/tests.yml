@@ -14,3 +14,5 @@ jobs:
   phpunit:
     name: PHP Test
     uses: XNXKTech/workflows/.github/workflows/php-test.yml@main
+    with:
+      versions: "[\"8.0\", \"8.1\"]"
