@@ -1,4 +1,4 @@
-# Cryptomute ![test](https://github.com/Teakowa/cryptomute/workflows/test/badge.svg)
+# Cryptomute [![Tests](https://github.com/Teakowa/cryptomute/actions/workflows/tests.yml/badge.svg)](https://github.com/Teakowa/cryptomute/actions/workflows/tests.yml)
 
 A small PHP class implementing Format Preserving Encryption via Feistel Network.
 
