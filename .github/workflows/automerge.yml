@@ -15,16 +15,6 @@ on:
 jobs:
   automerge:
     name: Auto Merge
-    runs-on: ubuntu-latest
-    steps:
-      - name: Automerge
-        uses: pascalgn/automerge-action@v0.14.3
-        env:
-          GITHUB_TOKEN: ${{ secrets.CI_PAT }}
-          MERGE_LABELS: "status/ready-to-merge"
-          MERGE_REMOVE_LABELS: "status/ready-to-merge"
-          MERGE_METHOD: "squash"
-          MERGE_RETRIES: "6"
-          MERGE_RETRY_SLEEP: "30000"
-          UPDATE_LABELS: "status/need-update"
-          UPDATE_METHOD: "rebase"
+    uses: XNXKTech/workflows/.github/workflows/dependabot-auto-merge.yml@main
+    secrets:
+      GH_TOKEN: ${{ secrets.CI_PAT }}
