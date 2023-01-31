@@ -67,7 +67,6 @@ Cipher is the first constructor argument. Supported cipher methods are:
 
 Cipher             | IV
 ------------------ | ---
-`des-cbc`          | yes
 `aes-128-cbc`      | yes
 `aes-192-cbc`      | yes
 `aes-256-cbc`      | yes
