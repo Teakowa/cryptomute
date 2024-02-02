@@ -6,6 +6,6 @@ jobs:
   automerge:
     name: Auto Merge
     if: ${{ github.actor == 'dependabot[bot]' }}
-    uses: XNXKTech/workflows/.github/workflows/dependabot-auto-merge.yml@main
+    uses: bytefloat/workflows/.github/workflows/dependabot-auto-merge.yml@main
     secrets:
       GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
